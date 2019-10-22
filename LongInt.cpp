@@ -5,9 +5,47 @@ LongInt& LongInt::operator+ (LongInt& num2)
 	return *this;
 }
 
+LongInt& LongInt::operator- (LongInt& num2)
+{
+	if (num2 > * this)
+	{
+		 num2 - *this;
+	}
+		
+	else
+	{
+
+	}
+}
+
+bool LongInt::operator> (LongInt& num2)
+{
+	if (length > num2.length)
+		return true;
+	if (length < num2.length)
+		return false;
+	int i = length;
+
+	while (i >= 0)
+	{
+		if (num[i] > num2.num[i])
+			return true;
+		if (num[i] < num2.num[i])
+			return false;
+		i--;
+	}
+	return false;
+}
+
+LongInt::LongInt(LongInt& num2)
+{
+	//length
+}
+
 LongInt::LongInt(int size) {
 	num = new int[size];
 	length = size;
+	Zero();
 }
 
 LongInt::LongInt(string& number)
@@ -23,7 +61,7 @@ LongInt::LongInt(string& number)
 
 	num = new int[length];
 
-	for (int j = 0; j < length; ++j)
+	for (int j = length - 1; j >= length; --j)
 	{
 		num[j] = number[i] - '0';
 		i++;
