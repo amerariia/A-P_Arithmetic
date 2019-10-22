@@ -7,5 +7,7 @@
 int main()
 {
 	LongInt* a = new LongInt(5);
+	a->Zero();
+	a->print();
 	return 0;
 }
