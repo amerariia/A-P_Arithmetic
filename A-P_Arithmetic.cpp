@@ -6,7 +6,6 @@
 
 int main()
 {
-	cout << "Hello julia!" << endl;
-	cout << "Natasha Sokol" << endl;
+	
 	return 0;
 }
