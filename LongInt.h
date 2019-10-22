@@ -5,8 +5,9 @@
 {
 	int* num;
 	bool isPosit = true;
-	int length;
 public:
+	int length;
+
 	LongInt();
 	LongInt(int size);
 	LongInt(string& s);

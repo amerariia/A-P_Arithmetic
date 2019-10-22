@@ -5,14 +5,17 @@
 #include "Headers.h"
 
 int main()
-{
-
-	LongInt* a = new LongInt(5);
-	a->Zero();
-	a->print();
-	string num = "577688767";
-	LongInt* b = new LongInt(num);
-	b->print();
+{	
+	string num = "4653";
+	string num2 = "302";
+	LongInt a(num);
+	LongInt b(num2);
+	a.print();
+	b.print();
+	LongInt c(a - b);
+	c.print();
+	cout << c.length;
 	
+
 	return 0;
 }
