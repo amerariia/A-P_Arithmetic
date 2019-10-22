@@ -152,6 +152,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="A-P_Arithmetic.cpp" />
+    <ClCompile Include="LongInt.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LongInt.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
