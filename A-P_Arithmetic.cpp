@@ -6,6 +6,6 @@
 
 int main()
 {
-	LongInt a = new LongInt(5);
+
 	return 0;
 }

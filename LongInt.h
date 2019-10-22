@@ -1,7 +1,7 @@
 #pragma once
 #include "Headers.h"
 
-class LongInt
+ class LongInt
 {
 	int* num;
 	bool isPosit = true;
