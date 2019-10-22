@@ -9,5 +9,8 @@ int main()
 	LongInt* a = new LongInt(5);
 	a->Zero();
 	a->print();
+	string num = "7657657";
+	LongInt* b = new LongInt(num);
+	b->print();
 	return 0;
 }
