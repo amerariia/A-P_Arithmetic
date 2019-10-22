@@ -10,7 +10,6 @@ public:
 	LongInt();
 	LongInt(int size);
 	LongInt(string& s);
-
 	void print();
 	void Zero();
 
