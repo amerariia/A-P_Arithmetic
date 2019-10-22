@@ -30,3 +30,18 @@ LongInt::LongInt(string& number)
 	}
 
 }
+
+void LongInt::print()
+{
+	if (isPosit == false)
+		cout << '-';
+	for (int i = 0; i < length; ++i)
+		cout << num[i];
+}
+
+void LongInt::Zero()
+{
+	for (int i = 0; i < length; ++i)
+		num[i] = 0;
+	isPosit = true;
+}
