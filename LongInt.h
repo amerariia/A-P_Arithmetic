@@ -4,7 +4,7 @@
 class LongInt
 {
 	int* num;
-	bool isPosit;
+	bool isPosit = true;
 	int length;
 
 	LongInt();
