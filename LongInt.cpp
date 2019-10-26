@@ -13,57 +13,119 @@ LongInt::~LongInt()
 		delete[] num;
 }
 
-LongInt& LongInt::operator+ (LongInt const& n2)
+LongInt::LongInt(string& number)
 {
-	return *this;
+	//cout << "CONSTR string\n";
+	length = number.size();
+	int i = 0;
+	if (number[i] == '-')
+	{
+		isPosit = false;
+		length--;
+		i++;
+	}
+
+	num = new int[length];
+
+	for (int j = length - 1; j >= 0; --j)
+	{
+		num[j] = number[i] - '0';
+		i++;
+	}
+
 }
 
-LongInt& LongInt::operator- (LongInt const& n2)
+LongInt LongInt::operator+ (const LongInt& n2) const
 {
-	//cout << "oper-\n";
-	///*if (n2 > *this)
-	//{
-	//	cout << "minus\n";
-	//	LongInt res(n2 - *this);
-	//	res.isPosit = false;
-	//	return res;
-	//}
-	//else*/
-	//{
-	//	cout << "norm\n";
-	//	LongInt res(length);
-	//	//res.print();
-	//	//bool odin = false;
-	//	for (int i = 0; i < length; ++i)
-	//	{
-	//		if (num[i] < n2.num[i])
-	//		{
-	//			res.num[i] = num[i] + 10 - n2.num[i];
-	//			int j = 1;
-	//			while (num[i + j] == 0)
-	//			{
-	//				num[i + j] = 9;
-	//				j++;
-	//			}
-	//			num[i + j]--;
-
-	//		}
-	//		else
-	//			res.num[i] = num[i] - n2.num[i];
-	//	}
-	//	cout << "length in op-: " << res.length << endl;
-
-	//	cout << "print in op-\n";
-	//	//res.print();
-	//	return res;}
-	LongInt n;
+	LongInt n = n2;
 	return n;
-	
 }
 
-bool LongInt::operator> (LongInt& n2)
+LongInt LongInt::operator- (const LongInt& n2) const
 {
-	//cout << "oper>\n";
+	if (this->isPosit == true && n2.isPosit == false)
+	{
+		LongInt n(n2);
+		n.isPosit = true;
+		return *this + n;
+	}
+
+	if (this->isPosit == false && n2.isPosit == true)
+	{
+		LongInt n(*this);
+		n.isPosit = true;
+		LongInt r = n + n2;
+		r.isPosit = false;
+		return r;
+	}
+
+	if (this->isPosit == true && n2.isPosit == true)
+	{
+		if (*this < n2)
+		{
+			LongInt r = n2 - *this;
+			r.isPosit = false;
+			return r;
+		}
+		else
+			if (*this == n2)
+			{
+				string str = "0";
+				LongInt r(str);
+				return r;
+			}
+		// n1 > n2
+
+		LongInt r1(this->length);
+		LongInt n1(*this);
+		int i;
+		for (i = 0; i < n2.length; ++i)
+		{
+			if (n1.num[i] < n2.num[i])
+			{
+				n1.num[i] += 10;
+				int j = i + 1;
+				while (n1.num[j] == 0 && j < length)
+				{
+					n1.num[j] = 9;
+					j++;
+				}
+				n1.num[j]--;
+			}
+			r1.num[i] = n1.num[i] - n2.num[i];
+		}
+
+		for (i; i < length; ++i)
+			r1.num[i] = n1.num[i];
+
+		int j = length - 1;
+		while (r1.num[j] == 0 && j > 0)
+			j--;
+
+		if (j != length - 1)
+		{
+			r1.length = j + 1;
+			LongInt r(r1);
+			return r;
+		}
+
+		return r1;
+		
+	}
+
+	if (this->isPosit == false && n2.isPosit == false)
+	{
+		LongInt n_1(*this);
+		LongInt n_2(n2);
+
+		n_1.isPosit = true;
+		n_2.isPosit = true;
+		return n_2 - n_1;
+	}	
+}
+
+bool LongInt::operator> (const LongInt& n2) const
+{
 	if (this->isPosit == true && n2.isPosit == false)	//+ > -
 		return true;
 	if (this->isPosit == false && n2.isPosit == true)	//- > +
@@ -91,6 +153,31 @@ bool LongInt::operator> (LongInt& n2)
 	return false;
 }
 
+bool LongInt::operator== (const LongInt& n2) const
+{
+	if (this->isPosit != n2.isPosit || this->length != n2.length)
+		return false;
+
+	int i = length - 1;
+
+	while (i >= 0)
+	{
+		if (num[i] != n2.num[i])
+			return false;
+		i--;
+	}
+
+	return true;
+}
+
+bool LongInt::operator< (const LongInt& n2) const
+{
+	if (*this == n2)
+		return false;
+	return !(*this > n2);
+}
+
+
 LongInt::LongInt(LongInt const & num2)
 {
 	//cout << "constr copy\n";
@@ -109,39 +196,18 @@ LongInt::LongInt(unsigned int size) {
 	Zero();
 }
 
-LongInt::LongInt(string& number)
-{
-	//cout << "CONSTR string\n";
-	length = number.size();
-	int i = 0;
-	if (number[i] == '-')
-	{
-		isPosit = false;
-		length--;
-		i++;
-	}
 
-	num = new int[length];
 
-	for (int j = length - 1; j >= 0; --j)
-	{
-		//cout << "constr: " << int(number[i] - '0') << endl;
-		num[j] = number[i] - '0';
-		i++;
-	}
-
-}
-
-void LongInt::print(ostream& os) const
-{
-	//cout << "print\n";
-	//cout << "length: " << length << endl;
-	if (isPosit == false)
-		os << '-';
-	for (int i = length-1; i >= 0; --i)
-		os << num[i];
-	os << '\n';
-}
+//void LongInt::print(ostream& os) const
+//{
+//	//cout << "print\n";
+//	//cout << "length: " << length << endl;
+//	if (isPosit == false)
+//		os << '-';
+//	for (int i = length-1; i >= 0; --i)
+//		os << num[i];
+//	os << '\n';
+//}
 
 void LongInt::Zero()
 {

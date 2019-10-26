@@ -14,13 +14,16 @@ public:
 	LongInt(unsigned int size);
 	LongInt(string& s);
 	LongInt(LongInt const & n);
-	void print(ostream& os) const;
+	//void print(ostream& os) const;
 	void Zero();
 
-	LongInt& operator+ (LongInt const& n2);
-	LongInt& operator- (LongInt const& n2);
-	//LongInt& operator* (LongInt const& n2);
-	bool operator> (LongInt& num2);
+	LongInt operator+ (const LongInt& n2) const;
+	LongInt operator- (const LongInt& n2) const;
+	LongInt operator* (const LongInt& n2) const;
+
+	bool operator> (const LongInt& n2) const;
+	bool operator==(const LongInt& n2) const;
+	bool operator< (const LongInt& n2) const;
 	LongInt& operator= (LongInt const & n);
 	friend  ostream& operator << (ostream& os, const LongInt& num);
 	friend istream& operator >> (istream& is, LongInt& num);
