@@ -6,16 +6,17 @@
 
 int main()
 {	
-	string num = "4653";
-	string num2 = "302";
-	LongInt a(num);
-	LongInt b(num2);
-	a.print();
-	b.print();
-	LongInt c(a - b);
-	c.print();
-	cout << c.length;
+	LongInt num1, num2;
+	cin >> num1;
+	cin >> num2;
+	cout << "num1 > num2 = ";
+	if (num1 > num2)
+		cout << "true\n";
+	else
+		cout << "false\n";
+	
 	
 
 	return 0;
 }
+

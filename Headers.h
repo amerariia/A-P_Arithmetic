@@ -2,5 +2,5 @@
 
 using namespace std;
 #include <iostream>
+#include <string>
 #include "LongInt.h"
-#include <string.h>
