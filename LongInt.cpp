@@ -37,6 +37,73 @@ LongInt::LongInt(string& number)
 
 LongInt LongInt::operator+ (const LongInt& n2) const
 {
+	if (this->isPosit == true && n2.isPosit == false)
+	{
+		LongInt n(n2);
+		n.isPosit = true;
+		return *this - n;
+	}
+	if (this->isPosit == false && n2.isPosit == true)
+	{
+		LongInt n(*this);
+		n.isPosit = true;
+		return n2 - n;
+	}
+
+	if (this->isPosit == true && n2.isPosit == true)
+	{
+		if (*this < n2)
+			return n2 + *this;
+		LongInt r1(this->length + 1);
+		LongInt n1(this->length + 1);
+		for (int i = 0; i < length; ++i)
+			n1.num[i] = this->num[i];
+
+		int i;
+		for (i = 0; i < n2.length; ++i)
+		{
+			if (n1.num[i] + n2.num[i] > 9)
+			{
+				int j = i + 1;
+				while (n1.num[j] == 9 && j < length)
+				{
+					n1.num[j] = 0;
+					j++;
+				}
+				n1.num[j]++;
+			}
+			r1.num[i] = (n1.num[i] + n2.num[i]) % 10;
+		}
+
+		for (i; i < length; ++i)
+			r1.num[i] = n1.num[i];
+
+		int j = length;
+		while (r1.num[j] == 0 && j > 0)
+			j--;
+
+		if (j != length)
+		{
+			r1.length = j + 1;
+			LongInt r(r1);
+			return r;
+		}
+
+		return r1;
+
+	}
+
+	if (this->isPosit == false && n2.isPosit == false)
+	{
+		LongInt n_1(*this);
+		n_1.isPosit = true;
+		LongInt n_2(n2);
+		n_2.isPosit = true;
+		LongInt r = n_1 + n_2;
+		r.isPosit = false;
+		return r;
+	}
+
 	LongInt n = n2;
 	return n;
 }
@@ -178,7 +245,7 @@ bool LongInt::operator< (const LongInt& n2) const
 }
 
 
-LongInt::LongInt(LongInt const & num2)
+LongInt::LongInt(const LongInt& num2)
 {
 	//cout << "constr copy\n";
 
@@ -196,18 +263,6 @@ LongInt::LongInt(unsigned int size) {
 	Zero();
 }
 
-
-
-//void LongInt::print(ostream& os) const
-//{
-//	//cout << "print\n";
-//	//cout << "length: " << length << endl;
-//	if (isPosit == false)
-//		os << '-';
-//	for (int i = length-1; i >= 0; --i)
-//		os << num[i];
-//	os << '\n';
-//}
 
 void LongInt::Zero()
 {

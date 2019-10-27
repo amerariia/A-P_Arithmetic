@@ -14,7 +14,6 @@ public:
 	LongInt(unsigned int size);
 	LongInt(string& s);
 	LongInt(LongInt const & n);
-	//void print(ostream& os) const;
 	void Zero();
 
 	LongInt operator+ (const LongInt& n2) const;
