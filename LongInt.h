@@ -16,6 +16,10 @@ public:
 	LongInt(LongInt const & n);
 	void Zero();
 	LongInt AddByMod(LongInt& n1, LongInt& n2, LongInt& n);
+	LongInt SubByMod(LongInt& n1, LongInt& n2, LongInt& n);
+	LongInt MultByMod(LongInt& n1, LongInt& n2, LongInt& n);
+	LongInt DivByMod(LongInt& n1, LongInt& n2, LongInt& n);
+	LongInt FindMultiply(LongInt& n1, LongInt& n2);
 
 	LongInt sqrt() const;
 	LongInt operator+ (const LongInt& n2) const;

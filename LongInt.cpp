@@ -368,23 +368,90 @@ LongInt LongInt::operator% (const LongInt& n2) const
 
 LongInt LongInt ::AddByMod(LongInt& n1, LongInt& n2, LongInt& n)
 {
-	string str = "1";
-	LongInt one(str);
-	//LongInt left(n1);
-	//LongInt right(n2);
-	//LongInt modul(n);
-
-	//if (n > n1 - one || n > n2 - one)
-	//	throw exception("numbers must be less or equal n-1");
-
+	
 	LongInt result = n1 + n2;
+
+	if (result < n)
+		return result;
+	else
+	{
+		return (result - n);
+	}
+
+}
+
+LongInt LongInt::SubByMod(LongInt& n1, LongInt& n2, LongInt& n)
+{
+	string str = "0";
+	LongInt zero(str);
+
+	LongInt result = n1 - n2;
+
+	if (result < zero)
+		return result + n;
+	else
+		return result;
+
+}
+
+LongInt LongInt::MultByMod(LongInt& n1, LongInt& n2, LongInt& n)
+{
+	//string str = "0";
+	LongInt tmp = n1 * n2;
+	
+	return tmp - (tmp) / n * n;
+
+}
+
+LongInt LongInt::DivByMod(LongInt& n1, LongInt& n2, LongInt& n)
+{	
+	LongInt a(n1);
+	LongInt mult = FindMultiply(n2, n);
+	LongInt result = a * mult;
+
 	return result;
-	//if (result < modul)
-	//	return result;
-	//else
-	//{
-	//	return (result - modul);
-	//}
+}
+
+LongInt LongInt::FindMultiply(LongInt& b, LongInt& m)
+{
+	string str = "0", str1 = "1";
+	LongInt zero(str);
+	LongInt one = (str1);
+
+	LongInt x1(one);
+	LongInt x2(zero);
+	LongInt x3 = m;
+	LongInt y1(zero);
+	LongInt y2(one);
+	LongInt y3 = b;
+
+	LongInt g;
+	LongInt t1;
+	LongInt t2;
+	LongInt t3;
+
+	while (true)
+	{
+		if (y3 == zero)
+			throw exception();
+		if (y3 == one)
+		{
+		   return y2;
+		}
+
+		g = x3 / y3;
+		t1 = x1 - g * y1;
+		t2 = x2 - g * y2;
+		t3 = x3 - g * y3;
+
+		x1 = y1;
+		x2 = y2;
+		x3 = y3;
+
+		y1 = t1;
+		y2 = t2;
+		y3 = t3;
+	}
 
 }
 

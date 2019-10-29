@@ -14,7 +14,7 @@ int main()
 	LongInt r;
 	//LongInt res =  r.AddByMod(num1, num2, num3);
 	//cout << res;
-	cout << r.AddByMod(num1, num2, num3);
+	cout << r.DivByMod(num1, num2, num3);
 	
 	
 	
