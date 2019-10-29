@@ -231,25 +231,45 @@ LongInt LongInt::operator- (const LongInt& n2) const
 
 LongInt LongInt::operator^ (const LongInt& n2) const
 {
+	string str = "0";
+	string str1 = "1";
+	string str2 = "2";
+	LongInt r(str1); //result
+	LongInt odun(str1);
+	LongInt dwa(str2);
+	LongInt n_2(n2);	
+	LongInt zero(str);
+	cout << *this << n2;
+
+	if (n_2 < zero)
+	{
+		throw exception();
+	}
 	if (this->isPosit == true)
 	{
-		string str = "0";
-		string str1 = "1";
-		LongInt r(str1); //result
-		LongInt n_1(*this);
-		LongInt n_2(n2);
-		LongInt odun(str1);
-		LongInt zero(str);
-		cout << endl;
 		while (n_2 > zero)
 		{			
-			cout << "r   " << r << endl;
-			cout << "n1  " << n_1 << endl;
-			cout << "n2  " << n_2 << endl;
-			r = r * n_1;
+			r = r * *this;
 			n_2 = n_2 - odun;
 		}
 		return r;
+	}
+	else
+	{
+		if (n_2 % dwa == odun)
+		{
+			LongInt n_1(*this);
+			n_1.isPosit = true;
+			r = n_1 ^ n_2;
+			r.isPosit = false;
+			return r;
+		}
+		else
+		{
+			LongInt n_1(*this);
+			n_1.isPosit = true;
+			return n_1 ^ n_2;
+		}
 	}
 
 }
@@ -334,7 +354,6 @@ LongInt LongInt::operator/ (const LongInt& n2) const
 	return result;
 }
 
-//ÒÐÅÁÀ ÌÍÎÆÅÍÍß
 LongInt LongInt::operator% (const LongInt& n2) const
 {
 	string s = "0";
@@ -345,6 +364,95 @@ LongInt LongInt::operator% (const LongInt& n2) const
 	LongInt right(n2);
 
 	return left - (left / right) * right;
+}
+
+LongInt LongInt ::AddByMod(LongInt& n1, LongInt& n2, LongInt& n)
+{
+	
+	LongInt result = n1 + n2;
+
+	if (result < n)
+		return result;
+	else
+	{
+		return (result - n);
+	}
+
+}
+
+LongInt LongInt::SubByMod(LongInt& n1, LongInt& n2, LongInt& n)
+{
+	string str = "0";
+	LongInt zero(str);
+
+	LongInt result = n1 - n2;
+
+	if (result < zero)
+		return result + n;
+	else
+		return result;
+
+}
+
+LongInt LongInt::MultByMod(LongInt& n1, LongInt& n2, LongInt& n)
+{
+	//string str = "0";
+	LongInt tmp = n1 * n2;
+	
+	return tmp - (tmp) / n * n;
+
+}
+
+LongInt LongInt::DivByMod(LongInt& n1, LongInt& n2, LongInt& n)
+{	
+	LongInt a(n1);
+	LongInt mult = FindMultiply(n2, n);
+	LongInt result = a * mult;
+
+	return result;
+}
+
+LongInt LongInt::FindMultiply(LongInt& b, LongInt& m)
+{
+	string str = "0", str1 = "1";
+	LongInt zero(str);
+	LongInt one = (str1);
+
+	LongInt x1(one);
+	LongInt x2(zero);
+	LongInt x3 = m;
+	LongInt y1(zero);
+	LongInt y2(one);
+	LongInt y3 = b;
+
+	LongInt g;
+	LongInt t1;
+	LongInt t2;
+	LongInt t3;
+
+	while (true)
+	{
+		if (y3 == zero)
+			throw exception();
+		if (y3 == one)
+		{
+		   return y2;
+		}
+
+		g = x3 / y3;
+		t1 = x1 - g * y1;
+		t2 = x2 - g * y2;
+		t3 = x3 - g * y3;
+
+		x1 = y1;
+		x2 = y2;
+		x3 = y3;
+
+		y1 = t1;
+		y2 = t2;
+		y3 = t3;
+	}
+
 }
 
 bool LongInt::operator> (const LongInt& n2) const
