@@ -191,6 +191,62 @@ LongInt LongInt::operator- (const LongInt& n2) const
 	}	
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+LongInt LongInt::operator* (const LongInt& n2) const
+{
+	if (this->isPosit == true && n2.isPosit == true)
+	{
+		LongInt n_2(n2);
+		string str = "0";
+		string str1 = "1";
+		LongInt r (str); //result
+		LongInt n_1(*this);
+		LongInt odun(str1);
+		LongInt zero(str);
+		while ( n_1 > zero)
+		{
+			r = r + n2;
+			n_1 = n_1 - odun;
+			cout << "r          " << r << endl;
+			cout << "n1          " << n_1 << endl;
+		}
+		return r;
+	}
+	
+	if (this->isPosit == false && n2.isPosit == true)
+	{
+		LongInt n_1(*this);
+		n_1.isPosit = true;
+		LongInt r = n_1 * n2;
+		r.isPosit = false;
+		return r;
+	}
+
+	if (this->isPosit == true && n2.isPosit == false)
+	{
+		LongInt n_2(n2);
+		n_2.isPosit = true;
+		LongInt r = *this * n_2;
+		r.isPosit = false;
+		return r;
+	}
+
+	if (this->isPosit == false && n2.isPosit == false)
+	{
+		LongInt n_1(*this);
+		LongInt n_2(n2);
+
+		n_1.isPosit = true;
+		n_2.isPosit = true;
+		return n_2 * n_1;
+	}
+}
+
+
+
 bool LongInt::operator> (const LongInt& n2) const
 {
 	if (this->isPosit == true && n2.isPosit == false)	//+ > -
