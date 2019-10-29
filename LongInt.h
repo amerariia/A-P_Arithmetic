@@ -15,6 +15,7 @@ public:
 	LongInt(string& s);
 	LongInt(LongInt const & n);
 	void Zero();
+	LongInt AddByMod(LongInt& n1, LongInt& n2, LongInt& n);
 
 	LongInt operator+ (const LongInt& n2) const;
 	LongInt operator- (const LongInt& n2) const;

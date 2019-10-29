@@ -301,6 +301,28 @@ LongInt LongInt::operator/ (const LongInt& n2) const
 //	return left - (left / right) * right;
 //}
 
+LongInt LongInt ::AddByMod(LongInt& n1, LongInt& n2, LongInt& n)
+{
+	string str = "1";
+	LongInt one(str);
+	//LongInt left(n1);
+	//LongInt right(n2);
+	//LongInt modul(n);
+
+	//if (n > n1 - one || n > n2 - one)
+	//	throw exception("numbers must be less or equal n-1");
+
+	LongInt result = n1 + n2;
+	return result;
+	//if (result < modul)
+	//	return result;
+	//else
+	//{
+	//	return (result - modul);
+	//}
+
+}
+
 bool LongInt::operator> (const LongInt& n2) const
 {
 	if (this->isPosit == true && n2.isPosit == false)	//+ > -
