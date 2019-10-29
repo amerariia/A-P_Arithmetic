@@ -45,6 +45,28 @@ LongInt::LongInt(string& number)
 
 }
 
+LongInt LongInt::sqrt() const
+{
+	string s0 = "0", s1 = "1";
+	LongInt zero(s0);
+	LongInt one(s1);
+	LongInt r(s0), r2(s0);
+
+	if (*this < zero)
+		throw exception("inv_arg");
+
+	while(r2 < *this)
+	{
+		r = r + one;
+		r2 = r * r;
+	}
+
+	if (r2 == *this)
+		return r;
+	else
+		return r - one;
+}
+
 LongInt LongInt::operator+ (const LongInt& n2) const
 {
 	if (this->isPosit == true && n2.isPosit == false)
@@ -217,13 +239,10 @@ LongInt LongInt::operator* (const LongInt& n2) const
 		LongInt n_1(*this);
 		LongInt odun(str1);
 		LongInt zero(str);
-		cout << endl;
 		while (n_1 > zero)
 		{
 			r = r + n2;
 			n_1 = n_1 - odun;
-			//cout << "r   " << r << endl;
-			//cout << "n1  " << n_1 << endl;
 		}
 		return r;
 	}
@@ -291,15 +310,17 @@ LongInt LongInt::operator/ (const LongInt& n2) const
 }
 
 //ÒÐÅÁÀ ÌÍÎÆÅÍÍß
-//LongInt LongInt::operator% (const LongInt& n2) const
-//{
-//	if (n2 == 0)
-//		throw new exception();
-//	LongInt left(*this);
-//	LongInt right(n2);
-//
-//	return left - (left / right) * right;
-//}
+LongInt LongInt::operator% (const LongInt& n2) const
+{
+	string s = "0";
+	LongInt zero(s);
+	if (n2 == zero || n2 < zero || *this < zero)
+		throw exception();
+	LongInt left(*this);
+	LongInt right(n2);
+
+	return left - (left / right) * right;
+}
 
 bool LongInt::operator> (const LongInt& n2) const
 {
@@ -427,7 +448,6 @@ ostream& operator << (ostream& os, const LongInt& n)
 	for (int i = n.length - 1; i >= 0; --i)
 		os << n.num[i];
 	os << '\n';
-	//os << "Length = " << n.length << '\n';
 
 	return os;
 }

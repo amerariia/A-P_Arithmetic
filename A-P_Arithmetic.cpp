@@ -8,10 +8,10 @@ int main()
 {	
 	LongInt num1, num2;
 	cin >> num1;
-	cin >> num2;
-	cout << "num1 * num2 = ";
-	LongInt r = num1 * num2;
-	cout << r;
+	//cin >> num2;
+	cout << "sqrt_num1 = ";
+	//LongInt r = num1 % num2;
+	cout << num1.sqrt();
 	
 	
 	
