@@ -231,25 +231,45 @@ LongInt LongInt::operator- (const LongInt& n2) const
 
 LongInt LongInt::operator^ (const LongInt& n2) const
 {
+	string str = "0";
+	string str1 = "1";
+	string str2 = "2";
+	LongInt r(str1); //result
+	LongInt odun(str1);
+	LongInt dwa(str2);
+	LongInt n_2(n2);	
+	LongInt zero(str);
+	cout << *this << n2;
+
+	if (n_2 < zero)
+	{
+		throw exception();
+	}
 	if (this->isPosit == true)
 	{
-		string str = "0";
-		string str1 = "1";
-		LongInt r(str1); //result
-		LongInt n_1(*this);
-		LongInt n_2(n2);
-		LongInt odun(str1);
-		LongInt zero(str);
-		cout << endl;
 		while (n_2 > zero)
 		{			
-			cout << "r   " << r << endl;
-			cout << "n1  " << n_1 << endl;
-			cout << "n2  " << n_2 << endl;
-			r = r * n_1;
+			r = r * *this;
 			n_2 = n_2 - odun;
 		}
 		return r;
+	}
+	else
+	{
+		if (n_2 % dwa == odun)
+		{
+			LongInt n_1(*this);
+			n_1.isPosit = true;
+			r = n_1 ^ n_2;
+			r.isPosit = false;
+			return r;
+		}
+		else
+		{
+			LongInt n_1(*this);
+			n_1.isPosit = true;
+			return n_1 ^ n_2;
+		}
 	}
 
 }
@@ -334,7 +354,6 @@ LongInt LongInt::operator/ (const LongInt& n2) const
 	return result;
 }
 
-//ÒÐÅÁÀ ÌÍÎÆÅÍÍß
 LongInt LongInt::operator% (const LongInt& n2) const
 {
 	string s = "0";
