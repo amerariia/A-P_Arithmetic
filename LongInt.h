@@ -21,6 +21,7 @@ public:
 	LongInt operator* (const LongInt& n2) const;
 	LongInt operator/ (const LongInt& n2) const;
 	LongInt operator% (const LongInt& n2) const;
+	LongInt operator^ (const LongInt& n2) const;
 
 	bool operator> (const LongInt& n2) const;
 	bool operator==(const LongInt& n2) const;
