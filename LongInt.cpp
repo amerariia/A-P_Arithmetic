@@ -25,8 +25,18 @@ LongInt::LongInt(string& number)
 		i++;
 	}
 
-	num = new int[length];
-
+	try {
+		num = new int[length];
+	}
+	catch(bad_alloc& ex)
+	{
+		cout << "bad_alloc\n";
+		cout << ex.what();
+	}
+	catch (...)
+	{
+		cout << "pizdec!";
+	}
 	for (int j = length - 1; j >= 0; --j)
 	{
 		num[j] = number[i] - '0';
@@ -54,10 +64,12 @@ LongInt LongInt::operator+ (const LongInt& n2) const
 	{
 		if (*this < n2)
 			return n2 + *this;
+
 		LongInt r1(this->length + 1);
 		LongInt n1(this->length + 1);
 		for (int i = 0; i < length; ++i)
 			n1.num[i] = this->num[i];
+
 
 		int i;
 		for (i = 0; i < n2.length; ++i)
@@ -65,7 +77,7 @@ LongInt LongInt::operator+ (const LongInt& n2) const
 			if (n1.num[i] + n2.num[i] > 9)
 			{
 				int j = i + 1;
-				while (n1.num[j] == 9 && j < length)
+				while (n1.num[j] == 9 && j < length + 1)
 				{
 					n1.num[j] = 0;
 					j++;
@@ -75,14 +87,14 @@ LongInt LongInt::operator+ (const LongInt& n2) const
 			r1.num[i] = (n1.num[i] + n2.num[i]) % 10;
 		}
 
-		for (i; i < length; ++i)
+		for (i; i < length + 1; ++i)
 			r1.num[i] = n1.num[i];
 
-		int j = length;
-		while (r1.num[j] == 0 && j > 0)
+		int j = r1.length - 1;
+		while (r1.num[j] == 0 && j >= 0)
 			j--;
 
-		if (j != length)
+		if (j != r1.length - 1)
 		{
 			r1.length = j + 1;
 			LongInt r(r1);
@@ -199,19 +211,19 @@ LongInt LongInt::operator* (const LongInt& n2) const
 {
 	if (this->isPosit == true && n2.isPosit == true)
 	{
-		LongInt n_2(n2);
 		string str = "0";
 		string str1 = "1";
-		LongInt r (str); //result
+		LongInt r(str); //result
 		LongInt n_1(*this);
 		LongInt odun(str1);
 		LongInt zero(str);
-		while ( n_1 > zero)
+		cout << endl;
+		while (n_1 > zero)
 		{
 			r = r + n2;
 			n_1 = n_1 - odun;
-			cout << "r          " << r << endl;
-			cout << "n1          " << n_1 << endl;
+			//cout << "r   " << r << endl;
+			//cout << "n1  " << n_1 << endl;
 		}
 		return r;
 	}
@@ -247,32 +259,32 @@ LongInt LongInt::operator* (const LongInt& n2) const
 
 LongInt LongInt::operator/ (const LongInt& n2) const
 {
-	string num = "0";
+	string num = "0", str1 = "1";
 
 	LongInt result;
 	LongInt left(*this);
 	LongInt right(n2);
-	;
+	LongInt zero(num);
+	LongInt one(str1);
+	
 	bool sign = (left.isPosit && !right.isPosit) || (!left.isPosit && right.isPosit); //if the result is negative
 	left.isPosit = true;
 	right.isPosit = true;
 
-	if (right == 0)
-		throw new exception("Divide by zero");
+	if (right == zero)
+		throw exception("Divide by zero");
 	if (right > left)
-		result = LongInt(num);
+		return zero;
 	else
 	{
-		int div = 0;
+		LongInt div = zero;
 		while (left > right || left == right)
 		{
-			div++;
+			div = div + one;
 			left = left - right;
 		}
-		num = to_string(div);
-		result = LongInt(num);
-	}
-
+		result = div;
+ 	}
 
 	result.isPosit = !sign;
 	return result;
@@ -348,15 +360,36 @@ LongInt::LongInt(const LongInt& num2)
 	//cout << "constr copy\n";
 
 	length = num2.length;
-	num = new int[length];
+	try {
+		num = new int[length];
+	}
+	catch (bad_alloc& ex)
+	{
+		cout << ex.what();
+	}
+	catch (...)
+	{
+		cout << "pizdec!";
+	}
 	isPosit = num2.isPosit;
 	for (int i = 0; i < length; ++i)
 		num[i] = num2.num[i];
 
 }
 
-LongInt::LongInt(unsigned int size) {
-	num = new int[size];
+LongInt::LongInt(unsigned int size) 
+{
+	try {
+		num = new int[size];
+	}
+	catch (bad_alloc& ex)
+	{
+		cout << ex.what();
+	}
+	catch(...)
+	{
+		cout << "pizdec!";
+	}
 	length = size;
 	Zero();
 }
