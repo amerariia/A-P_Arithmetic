@@ -229,6 +229,31 @@ LongInt LongInt::operator- (const LongInt& n2) const
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+LongInt LongInt::operator^ (const LongInt& n2) const
+{
+	if (this->isPosit == true)
+	{
+		string str = "0";
+		string str1 = "1";
+		LongInt r(str1); //result
+		LongInt n_1(*this);
+		LongInt n_2(n2);
+		LongInt odun(str1);
+		LongInt zero(str);
+		cout << endl;
+		while (n_2 > zero)
+		{			
+			cout << "r   " << r << endl;
+			cout << "n1  " << n_1 << endl;
+			cout << "n2  " << n_2 << endl;
+			r = r * n_1;
+			n_2 = n_2 - odun;
+		}
+		return r;
+	}
+
+}
+
 LongInt LongInt::operator* (const LongInt& n2) const
 {
 	if (this->isPosit == true && n2.isPosit == true)
