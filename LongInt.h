@@ -17,11 +17,13 @@ public:
 	void Zero();
 	LongInt AddByMod(LongInt& n1, LongInt& n2, LongInt& n);
 
+	LongInt sqrt() const;
 	LongInt operator+ (const LongInt& n2) const;
 	LongInt operator- (const LongInt& n2) const;
 	LongInt operator* (const LongInt& n2) const;
 	LongInt operator/ (const LongInt& n2) const;
 	LongInt operator% (const LongInt& n2) const;
+	LongInt operator^ (const LongInt& n2) const;
 
 	bool operator> (const LongInt& n2) const;
 	bool operator==(const LongInt& n2) const;

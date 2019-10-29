@@ -45,6 +45,28 @@ LongInt::LongInt(string& number)
 
 }
 
+LongInt LongInt::sqrt() const
+{
+	string s0 = "0", s1 = "1";
+	LongInt zero(s0);
+	LongInt one(s1);
+	LongInt r(s0), r2(s0);
+
+	if (*this < zero)
+		throw exception("inv_arg");
+
+	while(r2 < *this)
+	{
+		r = r + one;
+		r2 = r * r;
+	}
+
+	if (r2 == *this)
+		return r;
+	else
+		return r - one;
+}
+
 LongInt LongInt::operator+ (const LongInt& n2) const
 {
 	if (this->isPosit == true && n2.isPosit == false)
@@ -207,6 +229,51 @@ LongInt LongInt::operator- (const LongInt& n2) const
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+LongInt LongInt::operator^ (const LongInt& n2) const
+{
+	string str = "0";
+	string str1 = "1";
+	string str2 = "2";
+	LongInt r(str1); //result
+	LongInt odun(str1);
+	LongInt dwa(str2);
+	LongInt n_2(n2);	
+	LongInt zero(str);
+	cout << *this << n2;
+
+	if (n_2 < zero)
+	{
+		throw exception();
+	}
+	if (this->isPosit == true)
+	{
+		while (n_2 > zero)
+		{			
+			r = r * *this;
+			n_2 = n_2 - odun;
+		}
+		return r;
+	}
+	else
+	{
+		if (n_2 % dwa == odun)
+		{
+			LongInt n_1(*this);
+			n_1.isPosit = true;
+			r = n_1 ^ n_2;
+			r.isPosit = false;
+			return r;
+		}
+		else
+		{
+			LongInt n_1(*this);
+			n_1.isPosit = true;
+			return n_1 ^ n_2;
+		}
+	}
+
+}
+
 LongInt LongInt::operator* (const LongInt& n2) const
 {
 	if (this->isPosit == true && n2.isPosit == true)
@@ -217,13 +284,10 @@ LongInt LongInt::operator* (const LongInt& n2) const
 		LongInt n_1(*this);
 		LongInt odun(str1);
 		LongInt zero(str);
-		cout << endl;
 		while (n_1 > zero)
 		{
 			r = r + n2;
 			n_1 = n_1 - odun;
-			//cout << "r   " << r << endl;
-			//cout << "n1  " << n_1 << endl;
 		}
 		return r;
 	}
@@ -290,16 +354,17 @@ LongInt LongInt::operator/ (const LongInt& n2) const
 	return result;
 }
 
-//ÒÐÅÁÀ ÌÍÎÆÅÍÍß
-//LongInt LongInt::operator% (const LongInt& n2) const
-//{
-//	if (n2 == 0)
-//		throw new exception();
-//	LongInt left(*this);
-//	LongInt right(n2);
-//
-//	return left - (left / right) * right;
-//}
+LongInt LongInt::operator% (const LongInt& n2) const
+{
+	string s = "0";
+	LongInt zero(s);
+	if (n2 == zero || n2 < zero || *this < zero)
+		throw exception();
+	LongInt left(*this);
+	LongInt right(n2);
+
+	return left - (left / right) * right;
+}
 
 LongInt LongInt ::AddByMod(LongInt& n1, LongInt& n2, LongInt& n)
 {
@@ -449,7 +514,6 @@ ostream& operator << (ostream& os, const LongInt& n)
 	for (int i = n.length - 1; i >= 0; --i)
 		os << n.num[i];
 	os << '\n';
-	//os << "Length = " << n.length << '\n';
 
 	return os;
 }
