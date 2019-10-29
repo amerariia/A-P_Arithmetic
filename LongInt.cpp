@@ -245,7 +245,49 @@ LongInt LongInt::operator* (const LongInt& n2) const
 	}
 }
 
+LongInt LongInt::operator/ (const LongInt& n2) const
+{
+	string num = "0";
 
+	LongInt result;
+	LongInt left(*this);
+	LongInt right(n2);
+	;
+	bool sign = (left.isPosit && !right.isPosit) || (!left.isPosit && right.isPosit); //if the result is negative
+	left.isPosit = true;
+	right.isPosit = true;
+
+	if (right == 0)
+		throw new exception("Divide by zero");
+	if (right > left)
+		result = LongInt(num);
+	else
+	{
+		int div = 0;
+		while (left > right || left == right)
+		{
+			div++;
+			left = left - right;
+		}
+		num = to_string(div);
+		result = LongInt(num);
+	}
+
+
+	result.isPosit = !sign;
+	return result;
+}
+
+//ÒÐÅÁÀ ÌÍÎÆÅÍÍß
+//LongInt LongInt::operator% (const LongInt& n2) const
+//{
+//	if (n2 == 0)
+//		throw new exception();
+//	LongInt left(*this);
+//	LongInt right(n2);
+//
+//	return left - (left / right) * right;
+//}
 
 bool LongInt::operator> (const LongInt& n2) const
 {
