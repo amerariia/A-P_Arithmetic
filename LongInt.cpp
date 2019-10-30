@@ -239,7 +239,6 @@ LongInt LongInt::operator^ (const LongInt& n2) const
 	LongInt dwa(str2);
 	LongInt n_2(n2);	
 	LongInt zero(str);
-	cout << *this << n2;
 
 	if (n_2 < zero)
 	{
