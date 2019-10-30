@@ -436,7 +436,10 @@ LongInt LongInt::FindMultiply(LongInt& b, LongInt& m)
 			throw exception();
 		if (y3 == one)
 		{
-		   return y2;
+			if (y2 < zero)
+				return y2 + m;
+			else
+				return y2;
 		}
 
 		g = x3 / y3;
