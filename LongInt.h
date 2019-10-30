@@ -3,7 +3,7 @@
 
  class LongInt
 {
-	int* num;
+	char* num;
 	
 public:
 	unsigned int length;
@@ -15,11 +15,12 @@ public:
 	LongInt(string& s);
 	LongInt(LongInt const & n);
 	void Zero();
-	LongInt AddByMod(LongInt& n1, LongInt& n2, LongInt& n);
-	LongInt SubByMod(LongInt& n1, LongInt& n2, LongInt& n);
-	LongInt MultByMod(LongInt& n1, LongInt& n2, LongInt& n);
-	LongInt DivByMod(LongInt& n1, LongInt& n2, LongInt& n);
-	LongInt FindMultiply(LongInt& n1, LongInt& n2);
+
+	static LongInt AddByMod(LongInt& n1, LongInt& n2, LongInt& n);
+	static LongInt SubByMod(LongInt& n1, LongInt& n2, LongInt& n);
+	static LongInt MultByMod(LongInt& n1, LongInt& n2, LongInt& n);
+	static LongInt DivByMod(LongInt& n1, LongInt& n2, LongInt& n);
+	static LongInt FindMultiply(LongInt& n1, LongInt& n2);
 
 	LongInt sqrt() const;
 	LongInt operator+ (const LongInt& n2) const;

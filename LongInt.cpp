@@ -26,7 +26,7 @@ LongInt::LongInt(string& number)
 	}
 
 	try {
-		num = new int[length];
+		num = new char[length];
 	}
 	catch(bad_alloc& ex)
 	{
@@ -518,7 +518,7 @@ LongInt::LongInt(const LongInt& num2)
 
 	length = num2.length;
 	try {
-		num = new int[length];
+		num = new char[length];
 	}
 	catch (bad_alloc& ex)
 	{
@@ -537,7 +537,7 @@ LongInt::LongInt(const LongInt& num2)
 LongInt::LongInt(unsigned int size) 
 {
 	try {
-		num = new int[size];
+		num = new char[size];
 	}
 	catch (bad_alloc& ex)
 	{
