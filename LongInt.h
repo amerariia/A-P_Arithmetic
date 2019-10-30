@@ -37,13 +37,8 @@ public:
 	friend  ostream& operator << (ostream& os, const LongInt& num);
 	friend istream& operator >> (istream& is, LongInt& num);
 
-
-	void swap(LongInt& b)
-	{
-		std::swap(length, b.length);
-		std::swap(num, b.num);
-		std::swap(isPosit, b.isPosit);
-	}
+	static void porevnyanna();
+	void swap(LongInt& b);
 };
 
  
