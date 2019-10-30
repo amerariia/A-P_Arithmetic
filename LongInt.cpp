@@ -627,14 +627,20 @@ void LongInt::porevnyanna()
 
 		}
 		cout << A[i] << "x = " << B[i] << "(mod " << C[i] << ")" << endl;
+
+	}
+	for (i = 0; i < length; i++)
+	{
 		M = M * C[i];
 	}
 	/////////////////
 	for (i = 0; i < length; i++)
 	{
+		Q[i] = 1;
 		Meme[i] = M / C[i];
 		cout << "M[" << i << "] " << "N[" << i << "] = " << Q[i] << "(mod " << C[i] << ")" << endl;
 	}
+	cout << endl;
 	////////////////
 	for (i = 0; i < length; i++)
 	{
@@ -655,10 +661,10 @@ void LongInt::porevnyanna()
 	{
 		cout << "N[" << i << "] " << " = " << Q[i] << "(mod " << C[i] << ")" << endl;
 	}
-	int Xresult = 1;
+	int Xresult = 0;
 	for (i = 0; i < length; i++)
 	{
-		Xresult += Meme[i] * Q[i] * B[i];
+		Xresult += (Meme[i] * Q[i] * B[i]);
 	}
 	cout << "Xresult = " << Xresult << endl;
 	cout << "XXresult ~ " << Xresult << " (mod " << M << " )" << endl;
