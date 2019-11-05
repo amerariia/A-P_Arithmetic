@@ -21,6 +21,7 @@ public:
 	static LongInt MultByMod(LongInt& n1, LongInt& n2, LongInt& n);
 	static LongInt DivByMod(LongInt& n1, LongInt& n2, LongInt& n);
 	static LongInt FindMultiply(LongInt& n1, LongInt& n2);
+	static LongInt ModExp(LongInt& n1, LongInt& n2, LongInt& n3);
 
 	LongInt sqrt() const;
 	LongInt operator+ (const LongInt& n2) const;

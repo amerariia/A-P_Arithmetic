@@ -9,7 +9,7 @@ int main()
 	try
 	{
 		LongInt a, b, c;
-		cin >> a >> b;// >> c;
+		cin >> a >> b >> c;
 		cout << "a + b = " << a + b;
 		//cout << "a - b = " << a - b;
 		cout << "a * b = " << a * b;
@@ -24,6 +24,7 @@ int main()
 		//cout << "SubByMod: " << LongInt::SubByMod(a, b, c);
 		//cout << "MultByMod: " << LongInt::MultByMod(a, b, c);
 		//cout << "DivByMod: " << LongInt::DivByMod(a, b, c);
+		cout << "ModExp: " << LongInt::ModExp(a, b, c);
 		//LongInt::porevnyanna();
 
 	}
