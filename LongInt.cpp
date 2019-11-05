@@ -35,7 +35,7 @@ LongInt::LongInt(string& number)
 	}
 	catch (...)
 	{
-		cout << "pizdec!";
+		cout << "error!";
 	}
 	for (int j = length - 1; j >= 0; --j)
 	{
@@ -277,18 +277,49 @@ LongInt LongInt::operator* (const LongInt& n2) const
 {
 	if (this->isPosit == true && n2.isPosit == true)
 	{
-		string str = "0";
-		string str1 = "1";
-		LongInt r(str); //result
-		LongInt n_1(*this);
-		LongInt odun(str1);
-		LongInt zero(str);
-		while (n_1 > zero)
+		LongInt r(this->length + n2.length);
+		for (int i = 0; i < n2.length; ++i)
 		{
-			r = r + n2;
-			n_1 = n_1 - odun;
+			int ñarry = 0;
+			for (int j = 0, carry = 0; j < this->length || carry; ++j)
+			{
+				int curr;
+				if (j < this->length)
+					curr = carry + r.num[i + j] + this->num[j] * n2.num[i];
+				else
+					curr = carry + r.num[i + j];
+				carry = (int)curr / 10;
+				curr %= (int)10;
+				r.num[i + j] = curr;
+			}
 		}
+		for (int k = 0; k < r.length; ++k)
+			cout << static_cast<int>(r.num[k]);
+		
+		int i = r.length - 1;
+		//cout << "lengthB: " << r.length << '\n';
+		//cout << "rnumi: " << r.num[i] << ' ' << i << '\n';
+		while (static_cast<int>(r.num[i]) == 0 && r.length > 0)
+		{
+			cout << "length: " << r.length << '\n';
+			r.length--;
+			i--;
+		}
+		cout << "lengthA: " << r.length << '\n';
 		return r;
+
+		//string str = "0";
+		//string str1 = "1";
+		//LongInt r(str); //result
+		//LongInt n_1(*this);
+		//LongInt odun(str1);
+		//LongInt zero(str);
+		//while (n_1 > zero)
+		//{
+		//	r = r + n2;
+		//	n_1 = n_1 - odun;
+		//}
+		//return r;
 	}
 	
 	if (this->isPosit == false && n2.isPosit == true)
@@ -525,7 +556,7 @@ LongInt::LongInt(const LongInt& num2)
 	}
 	catch (...)
 	{
-		cout << "pizdec!";
+		cout << "error!\n";
 	}
 	isPosit = num2.isPosit;
 	for (int i = 0; i < length; ++i)
@@ -544,7 +575,7 @@ LongInt::LongInt(unsigned int size)
 	}
 	catch(...)
 	{
-		cout << "pizdec!";
+		cout << "error\n";
 	}
 	length = size;
 	Zero();
