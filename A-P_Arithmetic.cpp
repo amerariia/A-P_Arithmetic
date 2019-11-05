@@ -9,22 +9,22 @@ int main()
 	try
 	{
 		LongInt a, b, c;
-		cin >> a >> b;// >> c;
+		cin >> a >> b >> c;
 		cout << "a + b = " << a + b;
-		//cout << "a - b = " << a - b;
+		cout << "a - b = " << a - b;
 		cout << "a * b = " << a * b;
 		//cout << "a / b = " << a / b;
 		//cout << "a % b = " << a % b;
-		//cout << "a ^ b = " << (a ^ b);
-		//cout << "sqrt(a) = " << a.sqrt();
-		//cout << "a > b: " << (a > b) << '\n';
-		//cout << "a = b: " << (a == b) << '\n';
-		//cout << "a < b: " << (a < b) << '\n';
-		//cout << "AddByMod: " << LongInt::AddByMod(a, b, c);
-		//cout << "SubByMod: " << LongInt::SubByMod(a, b, c);
-		//cout << "MultByMod: " << LongInt::MultByMod(a, b, c);
-		//cout << "DivByMod: " << LongInt::DivByMod(a, b, c);
-		//LongInt::porevnyanna();
+		cout << "a ^ b = " << (a ^ b);
+		cout << "sqrt(a) = " << a.sqrt();
+		cout << "a > b: " << (a > b) << '\n';
+		cout << "a = b: " << (a == b) << '\n';
+		cout << "a < b: " << (a < b) << '\n';
+		cout << "AddByMod: " << LongInt::AddByMod(a, b, c);
+		cout << "SubByMod: " << LongInt::SubByMod(a, b, c);
+		cout << "MultByMod: " << LongInt::MultByMod(a, b, c);
+		cout << "DivByMod: " << LongInt::DivByMod(a, b, c);
+		LongInt::porevnyanna();
 
 	}
 	catch (...)

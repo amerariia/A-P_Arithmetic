@@ -237,6 +237,7 @@ LongInt LongInt::operator^ (const LongInt& n2) const
 	LongInt r(str1); //result
 	LongInt odun(str1);
 	LongInt dwa(str2);
+	LongInt a(*this);
 	LongInt n_2(n2);	
 	LongInt zero(str);
 
@@ -244,15 +245,22 @@ LongInt LongInt::operator^ (const LongInt& n2) const
 	{
 		throw exception();
 	}
-	if (this->isPosit == true)
+	while (!(n_2 == zero))
 	{
-		while (n_2 > zero)
+		if (n2 % dwa == odun)
+			r = r * a;
+		a = a * a;
+		n_2 = n_2 / dwa;
+	}
+	return r;
+
+		/*while (n_2 > zero)
 		{			
 			r = r * *this;
 			n_2 = n_2 - odun;
 		}
-		return r;
-	}
+		return r;*/
+	/*}
 	else
 	{
 		if (n_2 % dwa == odun)
@@ -269,7 +277,7 @@ LongInt LongInt::operator^ (const LongInt& n2) const
 			n_1.isPosit = true;
 			return n_1 ^ n_2;
 		}
-	}
+	}*/
 
 }
 
@@ -293,19 +301,13 @@ LongInt LongInt::operator* (const LongInt& n2) const
 				r.num[i + j] = curr;
 			}
 		}
-		for (int k = 0; k < r.length; ++k)
-			cout << static_cast<int>(r.num[k]);
 		
 		int i = r.length - 1;
-		//cout << "lengthB: " << r.length << '\n';
-		//cout << "rnumi: " << r.num[i] << ' ' << i << '\n';
 		while (static_cast<int>(r.num[i]) == 0 && r.length > 0)
 		{
-			cout << "length: " << r.length << '\n';
 			r.length--;
 			i--;
 		}
-		cout << "lengthA: " << r.length << '\n';
 		return r;
 
 		//string str = "0";
