@@ -301,13 +301,16 @@ LongInt LongInt::operator* (const LongInt& n2) const
 				r.num[i + j] = curr;
 			}
 		}
+
 		
 		int i = r.length - 1;
 		while (static_cast<int>(r.num[i]) == 0 && r.length > 0)
 		{
+			
 			r.length--;
 			i--;
 		}
+		
 		return r;
 
 		//string str = "0";
@@ -390,12 +393,12 @@ LongInt LongInt::operator% (const LongInt& n2) const
 {
 	string s = "0";
 	LongInt zero(s);
-	if (n2 == zero || n2 < zero || *this < zero)
+	if (n2 == zero)
 		throw exception();
 	LongInt left(*this);
 	LongInt right(n2);
 
-	return left - (left / right) * right;
+	return *this - (*this / n2) * n2;
 }
 
 LongInt LongInt ::AddByMod(LongInt& n1, LongInt& n2, LongInt& n)
@@ -442,6 +445,23 @@ LongInt LongInt::DivByMod(LongInt& n1, LongInt& n2, LongInt& n)
 	LongInt result = a * mult;
 
 	return result;
+}
+
+LongInt LongInt::ModExp(LongInt& n1, LongInt& n2, LongInt& n3)
+{
+	string str = "0", str1 = "1", str2 = "1";
+	LongInt two(str2);
+	LongInt zero(str);
+	LongInt one(str1);
+
+	if (n2 == zero) return one;
+	LongInt tmp(n2 / two);
+	LongInt z = ModExp(n1, tmp, n3);
+
+	if (n2 % two == zero)
+		return (z * z) % n3;
+	else
+		return (n1 * z * z) % n3;
 }
 
 LongInt LongInt::FindMultiply(LongInt& b, LongInt& m)
