@@ -1,8 +1,8 @@
 #include "Headers.h"
+#include "LongInt.h"
 
 LongInt::LongInt()
 {
-	//cout << "empty constr\n";
 	num = nullptr;
 	length = 0;
 }
@@ -13,9 +13,8 @@ LongInt::~LongInt()
 		delete[] num;
 }
 
-LongInt::LongInt(string& number)
+LongInt::LongInt(string number)
 {
-	//cout << "CONSTR string\n";
 	length = number.size();
 	int i = 0;
 	if (number[i] == '-')
@@ -47,10 +46,8 @@ LongInt::LongInt(string& number)
 
 LongInt LongInt::sqrt() const
 {
-	string s0 = "0", s1 = "1";
-	LongInt zero(s0);
-	LongInt one(s1);
-	LongInt r(s0), r2(s0);
+	LongInt zero("0"), one("1");
+	LongInt r("0"), r2("0");
 
 	if (*this < zero)
 		throw exception("inv_arg");
@@ -116,12 +113,7 @@ LongInt LongInt::operator+ (const LongInt& n2) const
 		while (r1.num[j] == 0 && j >= 0)
 			j--;
 
-		if (j != r1.length - 1)
-		{
-			r1.length = j + 1;
-			LongInt r(r1);
-			return r;
-		}
+		r1.length = j + 1;
 
 		return r1;
 
@@ -170,11 +162,7 @@ LongInt LongInt::operator- (const LongInt& n2) const
 		}
 		else
 			if (*this == n2)
-			{
-				string str = "0";
-				LongInt r(str);
-				return r;
-			}
+				return LongInt("0");
 		// n1 > n2
 
 		LongInt r1(this->length);
@@ -199,16 +187,7 @@ LongInt LongInt::operator- (const LongInt& n2) const
 		for (i; i < length; ++i)
 			r1.num[i] = n1.num[i];
 
-		int j = length - 1;
-		while (r1.num[j] == 0 && j > 0)
-			j--;
-
-		if (j != length - 1)
-		{
-			r1.length = j + 1;
-			LongInt r(r1);
-			return r;
-		}
+		r1.removeLeadingZeros();
 
 		return r1;
 		
@@ -231,15 +210,10 @@ LongInt LongInt::operator- (const LongInt& n2) const
 
 LongInt LongInt::operator^ (const LongInt& n2) const
 {
-	string str = "0";
-	string str1 = "1";
-	string str2 = "2";
-	LongInt r(str1); //result
-	LongInt odun(str1);
-	LongInt dwa(str2);
+	LongInt r("1"); //result
+	LongInt zero("0"), odun("1"), dwa("2");
 	LongInt a(*this);
 	LongInt n_2(n2);	
-	LongInt zero(str);
 
 	if (n_2 < zero)
 	{
@@ -247,37 +221,12 @@ LongInt LongInt::operator^ (const LongInt& n2) const
 	}
 	while (!(n_2 == zero))
 	{
-		if (n2 % dwa == odun)
+		if (n_2 % dwa == odun)
 			r = r * a;
 		a = a * a;
 		n_2 = n_2 / dwa;
 	}
 	return r;
-
-		/*while (n_2 > zero)
-		{			
-			r = r * *this;
-			n_2 = n_2 - odun;
-		}
-		return r;*/
-	/*}
-	else
-	{
-		if (n_2 % dwa == odun)
-		{
-			LongInt n_1(*this);
-			n_1.isPosit = true;
-			r = n_1 ^ n_2;
-			r.isPosit = false;
-			return r;
-		}
-		else
-		{
-			LongInt n_1(*this);
-			n_1.isPosit = true;
-			return n_1 ^ n_2;
-		}
-	}*/
 
 }
 
@@ -303,28 +252,9 @@ LongInt LongInt::operator* (const LongInt& n2) const
 		}
 
 		
-		int i = r.length - 1;
-		while (static_cast<int>(r.num[i]) == 0 && r.length > 0)
-		{
-			
-			r.length--;
-			i--;
-		}
+		r.removeLeadingZeros();
 		
 		return r;
-
-		//string str = "0";
-		//string str1 = "1";
-		//LongInt r(str); //result
-		//LongInt n_1(*this);
-		//LongInt odun(str1);
-		//LongInt zero(str);
-		//while (n_1 > zero)
-		//{
-		//	r = r + n2;
-		//	n_1 = n_1 - odun;
-		//}
-		//return r;
 	}
 	
 	if (this->isPosit == false && n2.isPosit == true)
@@ -358,35 +288,111 @@ LongInt LongInt::operator* (const LongInt& n2) const
 
 LongInt LongInt::operator/ (const LongInt& n2) const
 {
-	string num = "0", str1 = "1";
+	LongInt result("0");
 
-	LongInt result;
-	LongInt left(*this);
-	LongInt right(n2);
-	LongInt zero(num);
-	LongInt one(str1);
 	
-	bool sign = (left.isPosit && !right.isPosit) || (!left.isPosit && right.isPosit); //if the result is negative
-	left.isPosit = true;
-	right.isPosit = true;
+	
+	if ((*this).abs() < n2.abs())
+		return LongInt("0");
 
-	if (right == zero)
-		throw exception("Divide by zero");
-	if (right > left)
-		return zero;
-	else
+
+
+	LongInt n1(n2.length);
+	LongInt n_2(n2);
+	n_2.isPosit = true;
+	int index;
+	int j = this->length - 1;
+	for (int i = n1.length - 1; i >= 0; i--)
+		n1.num[i] = this->num[j--];
+	
+	index = j;
+	//cout << "index1: " << index << endl;
+	//cout << "-----------\n";
+
+
+
+
+
+	do
 	{
-		LongInt div = zero;
-		while (left > right || left == right)
+		//cout << "n1: " << n1 << "\nn2: " << n2;
+		//cout << "----------------------------------\n";
+		int flag = 0;
+		while (n1 < n_2)
 		{
-			div = div + one;
-			left = left - right;
+			//cout << "n1 < n2\n";
+			if (flag != 0 && index >= 0)
+				result = result * LongInt("10");
+			if (index < 0)
+			{
+				result = result * LongInt("10");
+				//cout << "\n1RESULT = " << result;
+				if ((isPosit && !n2.isPosit) || (!isPosit && n2.isPosit))
+					result.isPosit = false;
+				return result;
+			}
+			string str = to_string(static_cast<int>(this->num[index--]));
+			LongInt snoska(str);
+			n1 = n1 * LongInt("10") + snoska;
+			//cout << "n1: " << n1;
+			//cout << "snoska: " << snoska;
+			flag++;
 		}
-		result = div;
- 	}
+		//cout << "index2: " << index << endl;
 
-	result.isPosit = !sign;
+
+		LongInt ostacha;
+		LongInt i("0");
+		
+		for (i; i < LongInt("11"); i = i + LongInt("1"))
+		{
+			if (i * n_2 == n1)
+			{
+				ostacha = LongInt("0");
+				break;
+			}
+			if (i * n_2 > n1)
+			{
+				i = i - LongInt("1");
+				ostacha = n1 - n_2 * i;
+				break;
+			}
+		}
+
+		result = result * LongInt("10") + i;
+		//cout << "i: " << i;
+		//cout << "os: " << ostacha;
+		n1 = ostacha;
+	} while (index >= 0);
+	//cout << "\nRESULT = " << result;
+	if ((isPosit && !n2.isPosit) || (!isPosit && n2.isPosit))
+		result.isPosit = false;
 	return result;
+	////i
+	//if (ostacha > LongInt("0"))
+	//{
+	//	n1.length = this->length;
+	//	n1.Zero();
+	//	n1.num[0] = this->num[index--];
+	//	int k; int l = ostacha.length - 1;
+	//	for (k = 1; k <= ostacha.length; ++k)
+	//		n1.num[k] = ostacha.num[l--];
+	//	cout << "n*1: " << n1;
+	//	n1.length = k;
+	//	cout << "n1: " << n1;
+	//	while (n1 < n2)
+	//	{
+	//		j = index;
+	//		n1.length++;
+	//		for (int i = n1.length - 1; i >= 0; i--)
+	//			n1.num[i] = this->num[j--];
+	//		index = j;
+	//	}
+	//}
+
+	//cout << "n1 : " << n1;
+	//cout << "ostacha: " << ostacha;
+
 }
 
 LongInt LongInt::operator% (const LongInt& n2) const
@@ -449,10 +455,9 @@ LongInt LongInt::DivByMod(LongInt& n1, LongInt& n2, LongInt& n)
 
 LongInt LongInt::ModExp(LongInt& n1, LongInt& n2, LongInt& n3)
 {
-	string str = "0", str1 = "1", str2 = "1";
-	LongInt two(str2);
-	LongInt zero(str);
-	LongInt one(str1);
+	LongInt two("2");
+	LongInt zero("0");
+	LongInt one("1");
 
 	if (n2 == zero) return one;
 	LongInt tmp(n2 / two);
@@ -733,4 +738,27 @@ void LongInt::swap(LongInt& b)
 	std::swap(length, b.length);
 	std::swap(num, b.num);
 	std::swap(isPosit, b.isPosit);
+}
+
+void LongInt::removeLeadingZeros()
+{
+	if (!(*this == LongInt("0")))
+	{
+		int i = length - 1;
+		while (static_cast<int>(num[i--]) == 0 && length > 0)
+			length--;
+	}
+	if (length == 0)
+		length++;
+
+	
+}
+
+LongInt LongInt::abs() const
+{
+	if (isPosit)
+		return *this;
+	LongInt res(*this);
+	res.isPosit = true;
+	return res;
 }

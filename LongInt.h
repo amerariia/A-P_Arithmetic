@@ -6,13 +6,16 @@
 	char* num;
 	
 public:
+	
+
 	unsigned int length;
 	bool isPosit = true;
 
 	LongInt();
 	~LongInt();
 	LongInt(unsigned int size);
-	LongInt(string& s);
+	LongInt(string s);
+	LongInt(const char* ch) : LongInt(string(ch)) {};
 	LongInt(LongInt const & n);
 	void Zero();
 
@@ -40,6 +43,6 @@ public:
 
 	static void porevnyanna();
 	void swap(LongInt& b);
+	void removeLeadingZeros();
+	LongInt abs() const;
 };
-
- 
