@@ -24,14 +24,14 @@ int main()
 		cout << "AddByMod: " << LongInt::AddByMod(a, b, c);
 		cout << "SubByMod: " << LongInt::SubByMod(a, b, c);
 		cout << "MultByMod: " << LongInt::MultByMod(a, b, c);
-		cout << "DivByMod: " << LongInt::DivByMod(a, b, c);
 		cout << "ModExp: " << LongInt::ModExp(a, b, c);
+		cout << "DivByMod: " << LongInt::DivByMod(a, b, c);
 		//LongInt::porevnyanna();
 
 	}
-	catch (...)
+	catch (exception ex)
 	{
-		cout << "error!\n";
+		cout << ex.what();
 	}
 	
 	return 0;

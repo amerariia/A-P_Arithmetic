@@ -490,7 +490,7 @@ LongInt LongInt::FindMultiply(LongInt& b, LongInt& m)
 	while (true)
 	{
 		if (y3 == zero)
-			throw exception();
+			throw exception("findmultiply!!!\n");
 		if (y3 == one)
 		{
 			if (y2 < zero)
